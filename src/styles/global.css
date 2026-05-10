@@ -1,0 +1,203 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --navy: #0f1a2e;
+  --gold: #F5A623;
+  --teal-btn: #1a3a45;
+  --teal-tab: #2196a8;
+  --wrong-bg: #5a1010;
+  --wrong-border: #e53935;
+  --correct-bg: #1a4020;
+  --correct-border: #43a047;
+  --score-bg: #1a2a45;
+  --score-border: #F5A623;
+  --text-light: #e8eaf0;
+  --text-dim: #8899aa;
+}
+
+body {
+  background-color: var(--navy);
+  color: var(--text-light);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+input {
+  font-family: inherit;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.modal-box {
+  background: #162035;
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  padding: 28px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Gold button */
+.btn-gold {
+  background: var(--gold);
+  color: #0f1a2e;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 28px;
+  border-radius: 8px;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.btn-gold:hover:not(:disabled) { opacity: 0.85; }
+.btn-gold:active:not(:disabled) { transform: scale(0.97); }
+
+/* Nav buttons */
+.btn-nav {
+  background: transparent;
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 10px 22px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.btn-nav:hover { background: rgba(245,166,35,0.15); }
+
+/* Slide wrapper */
+.slide {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--navy);
+}
+
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes flipCoin {
+  0% { transform: rotateY(0deg) scale(1); }
+  50% { transform: rotateY(540deg) scale(1.15); }
+  100% { transform: rotateY(1080deg) scale(1); }
+}
+
+@keyframes coinDeltaFloat {
+  0%   { opacity: 0; transform: translateY(0) scale(0.8); }
+  10%  { opacity: 1; transform: translateY(-2px) scale(1.15); }
+  20%  { opacity: 1; transform: translateY(-6px) scale(1); }
+  85%  { opacity: 1; transform: translateY(-10px) scale(1); }
+  100% { opacity: 0; transform: translateY(-22px) scale(0.9); }
+}
+
+.spin-anim {
+  animation: spin 1.5s ease-in-out;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.coin-delta {
+  position: absolute;
+  right: -2px;
+  top: -8px;
+  font-weight: 900;
+  font-size: 1.05rem;
+  pointer-events: none;
+  animation: coinDeltaFloat 5s ease-out forwards;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Pulsing border for highlighted team rows */
+@keyframes pulseBorder {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245,166,35,0.0); }
+  50% { box-shadow: 0 0 0 4px rgba(245,166,35,0.4); }
+}
+
+.pulse-border {
+  animation: pulseBorder 1.4s ease-in-out infinite;
+}
+
+/* Winner reveal pop-in */
+@keyframes winnerPop {
+  0%   { opacity: 0; transform: scale(0.3) rotate(-6deg); }
+  60%  { opacity: 1; transform: scale(1.08) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.winner-pop {
+  animation: winnerPop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Confetti falling overlay on winner screen */
+@keyframes confetti-fall {
+  0%   { transform: translateY(-40px) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
